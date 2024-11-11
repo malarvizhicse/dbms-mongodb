@@ -1,0 +1,63 @@
+use admin
+switched to db admin
+show dbs
+admin    40.00 KiB
+config   72.00 KiB
+cse      72.00 KiB
+local   112.00 KiB
+use college
+switched to db college
+  db.test.insertMany([
+  { name: "priya", dept: "aids", age: 25 },
+  { name: "dharani", dept: "ece", age: 30 },
+  { name: "rose", dept: "csbs", age: 35 }
+])
+db.test.find({ age: { $gt: 20 } })
+{
+  _id: ObjectId('67318dbb8b98c3b4234bf993'),
+  name: 'priya',
+  dept: 'aids',
+  age: 25
+}
+{
+  _id: ObjectId('67318dbb8b98c3b4234bf994'),
+  name: 'dharani',
+  dept: 'ece',
+  age: 30
+}
+db.students.insertMany([
+  { name: "rose", age: 30, dept: "Computer Science" },
+  { name: "priya", age: 25, dept: "Mechanical Engineering" },
+  { name: "mano", age: 21, dept: "Electrical Engineering" },
+  { name: "kavya", age: 23, dept: "Civil Engineering" },
+  { name: "praveen", age: 20, dept: "Information Technology" }
+])
+db.students.find({ age: { $lt: 24 } })
+db.students.updateOne(
+  { name: "mano" },                     
+  { $set: { age: 41 } }                  
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.students.updateMany(
+  { age: { $lt: 24 } },                  
+  { $set: { dept: "ds" } }      
+)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+db.students.deleteOne({ name: "rose" })
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.students.deleteMany({ age: { $lt: 22 } })
